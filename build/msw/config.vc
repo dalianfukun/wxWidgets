@@ -32,7 +32,7 @@ LDFLAGS =
 CPP = $(CC) /EP /nologo
 
 # What type of library to build? [0,1]
-SHARED = 0
+SHARED = 1
 
 # GTK+ toolkit version [,2]
 TOOLKIT_VERSION = 
@@ -41,7 +41,7 @@ TOOLKIT_VERSION =
 WXUNIV = 0
 
 # Compile Unicode build of wxWidgets? [0,1]
-UNICODE = 1
+UNICODE = 0
 
 # Type of compiled binaries [debug,release]
 BUILD = debug
@@ -54,7 +54,7 @@ BUILD = debug
 # 
 # Accepted values: IA64, X64, ARM64
 # (AMD64 accepted as synonym for X64 but should not be used any more). 
-TARGET_CPU = $(CPU)
+TARGET_CPU = X64
 
 # Should debugging info be included in the executables? The default value
 # "default" means that debug info will be included if BUILD=debug
