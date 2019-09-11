@@ -6,7 +6,7 @@
     <wxCompilerPrefix>vc</wxCompilerPrefix>
     <wxCfg>
     </wxCfg>
-    <wxVendor>custom</wxVendor>
+    <wxVendor>lstc</wxVendor>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" Condition="'$(Platform)'=='Win32'">
     <wxArchSuffix>
@@ -62,8 +62,8 @@
   </PropertyGroup>
   <PropertyGroup Label="UserMacros">
     <wxIncSubDir>$(wxToolkitPrefix)$(wxSuffix)</wxIncSubDir>
-    <wxToolkitDllNamePrefix>wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)_</wxToolkitDllNamePrefix>
-    <wxToolkitDllNameSuffix>_$(wxCompilerPrefix)$(wxArchSuffix)_$(wxVendor)</wxToolkitDllNameSuffix>
+    <wxToolkitDllNamePrefix>wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)</wxToolkitDllNamePrefix>
+    <wxToolkitDllNameSuffix>$(wxArchSuffix)</wxToolkitDllNameSuffix>
     <wxToolkitLibNamePrefix>wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)_</wxToolkitLibNamePrefix>
     <wxBaseLibNamePrefix>wxbase$(wxShortVersionString)$(wxSuffix)</wxBaseLibNamePrefix>
   </PropertyGroup>

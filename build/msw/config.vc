@@ -125,7 +125,7 @@ USE_CAIRO = 0
 OFFICIAL_BUILD = 0
 
 # Use this to name your customized DLLs differently 
-VENDOR = custom
+VENDOR =
 
 #  
 WX_FLAVOUR = 
@@ -151,3 +151,5 @@ CPPUNIT_LIBS =
 # it if SHARED=1 unless you know what you are doing. [dynamic,static]
 RUNTIME_LIBS = dynamic
 
+# Build LSTC widgets configuration.
+USE_LSTC = 1

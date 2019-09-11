@@ -1757,6 +1757,25 @@ GLLIB_OBJECTS =  \
 	$(OBJS)\gllib_dummy.obj \
 	$(OBJS)\gllib_glcmn.obj \
 	$(OBJS)\gllib_glcanvas.obj
+    
+LSTCDLL_CXXFLAGS = /M$(__RUNTIME_LIBS_612)$(__DEBUGRUNTIME) /DWIN32 \
+    $(__DEBUGINFO) \
+	/Fd$(LIBDIRNAME)\wx$(PORTNAME)$(WXUNIVNAME)$(WX_VERSION_NODOT)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_gl$(WXCOMPILER)$(VENDORTAG).pdb \
+	$(____DEBUGRUNTIME) $(__OPTIMIZEFLAG) /D_CRT_SECURE_NO_DEPRECATE=1 \
+	/D_CRT_NON_CONFORMING_SWPRINTFS=1 /D_SCL_SECURE_NO_WARNINGS=1 \
+	$(__NO_VC_CRTDBG_p) /D__WXMSW__ $(__WXUNIV_DEFINE_p) $(__DEBUG_DEFINE_p) \
+	$(__NDEBUG_DEFINE_p) $(__EXCEPTIONS_DEFINE_p) $(__RTTI_DEFINE_p) \
+	$(__THREAD_DEFINE_p) $(__UNICODE_DEFINE_p) /I$(SETUPHDIR) /I..\..\include \
+	$(____CAIRO_INCLUDEDIR_FILENAMES) /W4 /DWXBUILDING /I..\..\src\tiff\libtiff \
+	/I..\..\src\jpeg /I..\..\src\png /I..\..\src\zlib /I..\..\src\regex \
+	/I..\..\src\expat\lib /DWXUSINGDLL /DWXMAKINGDLL_GL $(__RTTIFLAG) \
+	$(__EXCEPTIONSFLAG) /Yu"wx/wxprec.h" /Fp"$(OBJS)\wxprec_lstcdll.pch" \
+	$(CPPFLAGS) $(CXXFLAGS)
+LSTCDLL_OBJECTS =  \
+    $(OBJS)\lstcdll_treelist.obj
+LSTCDLL_RESOURCES =  \
+	$(OBJS)\lstcdll_version.res
+
 BUILD_CFG_FILE = $(SETUPHDIR)\build.cfg
 
 ### Conditionally set variables: ###
@@ -1794,10 +1813,16 @@ WXCOMPILER = _vc
 !if "$(OFFICIAL_BUILD)" == "1"
 WXCOMPILER = _vc$(COMPILER_VERSION)$(ARCH_SUFFIX)
 !endif
+!if "$(USE_LSTC)" == "1"
+WXCOMPILER =
+!endif
 !if "$(OFFICIAL_BUILD)" == "0"
 VENDORTAG = _$(VENDOR)
 !endif
 !if "$(OFFICIAL_BUILD)" == "1"
+VENDORTAG = 
+!endif
+!if "$(USE_LSTC)" == "1"
 VENDORTAG = 
 !endif
 !if "$(BUILD)" == "debug" && "$(DEBUG_RUNTIME_LIBS)" == "default"
@@ -5498,6 +5523,10 @@ ____wxstc_namelib_DEP = $(__stclib___depname)
 __gldll___depname = \
 	$(LIBDIRNAME)\wx$(PORTNAME)$(WXUNIVNAME)$(WX_VERSION_NODOT)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_gl$(WXCOMPILER)$(VENDORTAG).dll
 !endif
+!if "$(SHARED)" == "1" && "$(USE_GUI)" == "1" && "$(USE_LSTC)" == "1"
+__lstcdll___depname = \
+	$(LIBDIRNAME)\wx$(PORTNAME)$(WXUNIVNAME)$(WX_VERSION_NODOT)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_lstc$(WXCOMPILER)$(VENDORTAG).dll
+!endif
 !if "$(BUILD)" == "debug" && "$(DEBUG_INFO)" == "default"
 __DEBUGINFO_604 = $(__DEBUGRUNTIME_11)
 !endif
@@ -6217,6 +6246,13 @@ $(LIBDIRNAME)\wx$(PORTNAME)$(WXUNIVNAME)$(WX_RELEASE_NODOT)$(WXUNICODEFLAG)$(WXD
 	if exist $@ del $@
 	link /LIB /NOLOGO /OUT:$@ @<<
 	$(GLLIB_OBJECTS)
+<<
+!endif
+
+!if "$(SHARED)" == "1" && "$(USE_GUI)" == "1" && "$(USE_LSTC)" == "1"
+$(LIBDIRNAME)\wx$(PORTNAME)$(WXUNIVNAME)$(WX_VERSION_NODOT)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_lstc$(WXCOMPILER)$(VENDORTAG).dll: $(OBJS)\lstcdll_treelist.obj  $(LSTCDLL_OBJECTS) $(__wxtiff___depname) $(__wxjpeg___depname) $(__wxpng___depname) $(__wxscintilla) $(LIBDIRNAME)\wxexpat$(WXDEBUGFLAG).lib $(LIBDIRNAME)\wxzlib$(WXDEBUGFLAG).lib $(LIBDIRNAME)\wxregex$(WXUNICODEFLAG)$(WXDEBUGFLAG).lib $(OBJS)\lstcdll_version.res $(__basedll___depname) $(__coredll___depname) $(__monodll___depname)
+	link /DLL /NOLOGO /OUT:$@  $(__DEBUGINFO_6) /pdb:"$(LIBDIRNAME)\wx$(PORTNAME)$(WXUNIVNAME)$(WX_VERSION_NODOT)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_gl$(WXCOMPILER)$(VENDORTAG).pdb" $(__DEBUGINFO_604)  $(LINK_TARGET_CPU) /LIBPATH:$(LIBDIRNAME) $(____CAIRO_LIBDIR_FILENAMES) $(LDFLAGS) @<<
+	$(LSTCDLL_OBJECTS) $(LSTCDLL_RESOURCES)  $(__LIB_TIFF_p) $(__LIB_JPEG_p) $(__LIB_PNG_p)   wxzlib$(WXDEBUGFLAG).lib wxregex$(WXUNICODEFLAG)$(WXDEBUGFLAG).lib wxexpat$(WXDEBUGFLAG).lib $(EXTRALIBS_FOR_BASE) $(__CAIRO_LIB_p) kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib shlwapi.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib version.lib wsock32.lib wininet.lib $(__WXLIBGLDEP_CORE_p) $(__WXLIBGLDEP_BASE_p) $(__WXLIB_MONO_p) /IMPLIB:$(LIBDIRNAME)\wx$(PORTNAME)$(WXUNIVNAME)$(WX_RELEASE_NODOT)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_lstc.lib
 <<
 !endif
 
@@ -17194,4 +17230,9 @@ $(OBJS)\gllib_glcmn.obj: ..\..\src\common\glcmn.cpp
 
 $(OBJS)\gllib_glcanvas.obj: ..\..\src\msw\glcanvas.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(GLLIB_CXXFLAGS) ..\..\src\msw\glcanvas.cpp
+    
+$(OBJS)\lstcdll_treelist.obj: ..\..\src\lstc\lstc_treelist.cpp
+	$(CXX) /c /nologo /TP /Fo$@ $(GLDLL_CXXFLAGS) /Ycwx/wxprec.h ..\..\src\lstc\lstc_treelist.cpp
 
+$(OBJS)\lstcdll_version.res: ..\..\src\msw\version.rc
+	rc /fo$@  /d WIN32 $(____DEBUGRUNTIME_6) /d _CRT_SECURE_NO_DEPRECATE=1 /d _CRT_NON_CONFORMING_SWPRINTFS=1 /d _SCL_SECURE_NO_WARNINGS=1 $(__NO_VC_CRTDBG_p_72)  /d __WXMSW__ $(__WXUNIV_DEFINE_p_67) $(__DEBUG_DEFINE_p_66) $(__NDEBUG_DEFINE_p_65) $(__EXCEPTIONS_DEFINE_p_65) $(__RTTI_DEFINE_p_65) $(__THREAD_DEFINE_p_65) $(__UNICODE_DEFINE_p_67) /i $(SETUPHDIR) /i ..\..\include $(____CAIRO_INCLUDEDIR_FILENAMES_4) /d WXBUILDING /d WXDLLNAME=wx$(PORTNAME)$(WXUNIVNAME)$(WX_VERSION_NODOT)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_gl$(WXCOMPILER)$(VENDORTAG)  /i ..\..\src\tiff\libtiff /i ..\..\src\jpeg /i ..\..\src\png /i ..\..\src\zlib /i ..\..\src\regex /i ..\..\src\expat\lib /d WXUSINGDLL /d WXMAKINGDLL_GL ..\..\src\msw\version.rc
