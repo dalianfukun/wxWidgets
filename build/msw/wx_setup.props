@@ -6,7 +6,7 @@
     <wxCompilerPrefix>vc</wxCompilerPrefix>
     <wxCfg>
     </wxCfg>
-    <wxVendor>lstc</wxVendor>
+    <wxVendor></wxVendor>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" Condition="'$(Platform)'=='Win32'">
     <wxArchSuffix>
@@ -18,16 +18,16 @@
   <PropertyGroup Label="UserMacros" Condition="'$(Platform)'=='Itanium'">
     <wxArchSuffix>_ia64</wxArchSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="('$(Configuration)'=='Debug' or '$(Configuration)'=='DLL Debug') and '$(CharacterSet)'=='Unicode'">
+  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='DLL Debug'">
     <wxSuffix>ud</wxSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="('$(Configuration)'=='Debug' or '$(Configuration)'=='DLL Debug') and '$(CharacterSet)'!='Unicode'">
+  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='DLL Debug'">
     <wxSuffix>d</wxSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="('$(Configuration)'=='Release' or '$(Configuration)'=='DLL Release') and '$(CharacterSet)'=='Unicode'">
+  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='DLL Release'">
     <wxSuffix>u</wxSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="('$(Configuration)'=='Release' or '$(Configuration)'=='DLL Release') and '$(CharacterSet)'!='Unicode'">
+  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='DLL Release'">
     <wxSuffix>
     </wxSuffix>
   </PropertyGroup>
@@ -62,8 +62,8 @@
   </PropertyGroup>
   <PropertyGroup Label="UserMacros">
     <wxIncSubDir>$(wxToolkitPrefix)$(wxSuffix)</wxIncSubDir>
-    <wxToolkitDllNamePrefix>wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)</wxToolkitDllNamePrefix>
-    <wxToolkitDllNameSuffix>$(wxArchSuffix)</wxToolkitDllNameSuffix>
+    <wxToolkitDllNamePrefix>wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)_</wxToolkitDllNamePrefix>
+    <wxToolkitDllNameSuffix></wxToolkitDllNameSuffix>
     <wxToolkitLibNamePrefix>wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)_</wxToolkitLibNamePrefix>
     <wxBaseLibNamePrefix>wxbase$(wxShortVersionString)$(wxSuffix)</wxBaseLibNamePrefix>
   </PropertyGroup>

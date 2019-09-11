@@ -19,12 +19,12 @@
     #pragma interface "treelistctrl.h"
 #endif
 
-#include <wx/treectrl.h>
-#include <wx/control.h>
-#include <wx/pen.h>
-#include <wx/listctrl.h> // for wxListEvent
-#include <wx/dynarray.h>
-#include <wx/arrimpl.cpp>
+#include "wx/treectrl.h"
+#include "wx/control.h
+#include "wx/pen.h
+#include "wx/listctrl.h" // for wxListEvent
+#include "wx/dynarray.h"
+#include "wx/arrimpl.cpp"
 
 class WXDLLEXPORT wxTreeListItem;
 class WXDLLEXPORT wxTreeListHeaderWindow;

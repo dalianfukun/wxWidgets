@@ -10,7 +10,7 @@
 //              Vadim Zeitlin, Otto Wyss , Guru Kathiresan
 // Licence:     wxWindows
 /////////////////////////////////////////////////////////////////////////////
-#include "lsapipre.h"
+#include "wx/wxprec.h"
 
 // ===========================================================================
 // declarations
@@ -32,33 +32,33 @@
 // #endif
 
 
-#include <wx/treebase.h>
-#include <wx/timer.h>
-#include <wx/textctrl.h>
-#include <wx/odcombo.h>
-#include <wx/spinctrl.h>
-#include <wx/datectrl.h>
-#include <wx/imaglist.h>
-#include <wx/settings.h>
-#include <wx/dcclient.h>
-#include <wx/dcscreen.h>
-#include <wx/scrolwin.h>
-#include <wx/renderer.h>
-#include <wx/dcbuffer.h>
+#include "wx/treebase.h"
+#include "wx/timer.h"
+#include "wx/textctrl.h"
+#include "wx/odcombo.h"
+#include "wx/spinctrl.h"
+#include "wx/datectrl.h"
+#include "wx/imaglist.h"
+#include "wx/settings.h"
+#include "wx/dcclient.h"
+#include "wx/dcscreen.h"
+#include "wx/scrolwin.h"
+#include "wx/renderer.h"
+#include "wx/dcbuffer.h"
 #include "treelistctrl.h"
 
 ///@added by wenhui 20080928
-#include <wx/bmpbuttn.h>
-#include <wx/combobox.h>
-#include <wx/valtext.h>
-#include <wx/app.h>
+#include "wx/bmpbuttn.h"
+#include "wx/combobox.h"
+#include "wx/valtext.h"
+#include "wx/app.h"
 ///@end
 
-#include <wx/dcmemory.h>
+#include "wx/dcmemory.h"
 #if wxCHECK_VERSION(2, 7, 0)
 #include <wx/renderer.h>
 #endif
-#include <wx/apptrait.h>
+#include "wx/apptrait.h"
 
 #ifndef MAX_PATH
 #define MAX_PATH 512
