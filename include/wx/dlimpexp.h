@@ -84,6 +84,7 @@
 #    define WXMAKINGDLL_MEDIA
 #    define WXMAKINGDLL_STC
 #    define WXMAKINGDLL_WEBVIEW
+#    define WXMAKINGDLL_LSTC
 #endif /* WXMAKINGDLL */
 
 /*
@@ -184,6 +185,14 @@
 #    define WXDLLIMPEXP_GL WXIMPORT
 #else /* not making nor using DLL */
 #    define WXDLLIMPEXP_GL
+#endif
+
+#ifdef WXMAKINGDLL_LSTC
+#    define WXDLLIMPEXP_LSTC WXEXPORT
+#elif defined(WXUSINGDLL)
+#    define WXDLLIMPEXP_LSTC WXIMPORT
+#else
+#    define WXDLLIMPEXP_LSTC
 #endif
 
 #ifdef WXMAKINGDLL_XML
@@ -307,6 +316,7 @@
     #define WXDLLIMPEXP_FWD_MEDIA     WXDLLIMPEXP_MEDIA
     #define WXDLLIMPEXP_FWD_STC       WXDLLIMPEXP_STC
     #define WXDLLIMPEXP_FWD_WEBVIEW   WXDLLIMPEXP_WEBVIEW
+    #define WXDLLIMPEXP_FWD_LSTC      WXDLLIMPEXP_LSTC
 #endif
 
 /* for backwards compatibility, define suffix-less versions too */

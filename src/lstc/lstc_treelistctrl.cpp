@@ -127,7 +127,7 @@ static wxTreeListColumnInfo wxInvalidTreeListColumnInfo;
 //  wxTreeListHeaderWindow (internal)
 //-----------------------------------------------------------------------------
 
-class  wxTreeListHeaderWindow : public wxPanel
+class  WXDLLIMPEXP_LSTC wxTreeListHeaderWindow : public wxPanel
 {
 protected:
     wxTreeListMainWindow *m_owner;
@@ -263,7 +263,7 @@ private:
 class wxEditTextCtrl;
 class wxEditChoiceCtrl;
 // this is the "true" control
-class  wxTreeListMainWindow: public wxScrolledWindow
+class  WXDLLIMPEXP_LSTC wxTreeListMainWindow: public wxScrolledWindow
 {
 public:
     // creation
@@ -800,8 +800,8 @@ protected:
     bool SendEvent(wxEventType event_type, wxTreeListItem *item = NULL, wxTreeEvent *event = NULL);  // returns true if processed
 
 private:
-    DECLARE_EVENT_TABLE()
-    DECLARE_DYNAMIC_CLASS(wxTreeListMainWindow)
+	wxDECLARE_EVENT_TABLE();
+	wxDECLARE_CLASS(wxTreeListMainWindow);
 };
 
 /************************************************************************/
@@ -2033,14 +2033,14 @@ void wxEditDateCtrl::SetTextFocus(void)
 //-----------------------------------------------------------------------------
 
 
-IMPLEMENT_DYNAMIC_CLASS(wxTreeListHeaderWindow,wxPanel);
+wxIMPLEMENT_CLASS(wxTreeListHeaderWindow,wxPanel);
 
-BEGIN_EVENT_TABLE(wxTreeListHeaderWindow,wxPanel)
+wxBEGIN_EVENT_TABLE(wxTreeListHeaderWindow,wxPanel)
     EVT_PAINT         (wxTreeListHeaderWindow::OnPaint)
     EVT_ERASE_BACKGROUND(wxTreeListHeaderWindow::OnEraseBackground) // reduce flicker
     EVT_MOUSE_EVENTS  (wxTreeListHeaderWindow::OnMouse)
     EVT_SET_FOCUS     (wxTreeListHeaderWindow::OnSetFocus)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 void wxTreeListHeaderWindow::Init()
@@ -2805,9 +2805,9 @@ int wxTreeListItem::GetCurrentImage() const {
 // wxTreeListMainWindow implementation
 // ---------------------------------------------------------------------------
 
-IMPLEMENT_DYNAMIC_CLASS(wxTreeListMainWindow, wxScrolledWindow)
+wxIMPLEMENT_CLASS(wxTreeListMainWindow, wxScrolledWindow)
 
-BEGIN_EVENT_TABLE(wxTreeListMainWindow, wxScrolledWindow)
+wxBEGIN_EVENT_TABLE(wxTreeListMainWindow, wxScrolledWindow)
     EVT_PAINT          (wxTreeListMainWindow::OnPaint)
     EVT_ERASE_BACKGROUND(wxTreeListMainWindow::OnEraseBackground) // reduce flicker
     EVT_MOUSE_EVENTS   (wxTreeListMainWindow::OnMouse)
@@ -2817,7 +2817,7 @@ BEGIN_EVENT_TABLE(wxTreeListMainWindow, wxScrolledWindow)
     EVT_IDLE           (wxTreeListMainWindow::OnIdle)
     EVT_SCROLLWIN      (wxTreeListMainWindow::OnScroll)
     EVT_MOUSE_CAPTURE_LOST(wxTreeListMainWindow::OnCaptureLost)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 // ---------------------------------------------------------------------------
@@ -6155,12 +6155,12 @@ wxTreeEvent nevent (event_type, 0);
 //  wxTreeListCtrl
 //-----------------------------------------------------------------------------
 
-IMPLEMENT_DYNAMIC_CLASS(wxTreeListCtrl, wxPanel);
+wxIMPLEMENT_CLASS(wxTreeListCtrl, wxPanel);
 
-BEGIN_EVENT_TABLE(wxTreeListCtrl, wxPanel)
+wxBEGIN_EVENT_TABLE(wxTreeListCtrl, wxPanel)
     EVT_SIZE(wxTreeListCtrl::OnSize)
     EVT_KILL_FOCUS(wxTreeListCtrl::OnKillFocus)
-END_EVENT_TABLE();
+wxEND_EVENT_TABLE();
 
 bool wxTreeListCtrl::Create(wxWindow *parent, wxWindowID id,
                             const wxPoint& pos,

@@ -26,9 +26,8 @@
 #include "wx/dynarray.h"
 #include "wx/arrimpl.cpp"
 
-class WXDLLEXPORT wxTreeListItem;
-class WXDLLEXPORT wxTreeListHeaderWindow;
-class WXDLLEXPORT wxTreeListMainWindow;
+class WXDLLIMPEXP_FWD_LSTC wxTreeListHeaderWindow;
+class WXDLLIMPEXP_FWD_LSTC wxTreeListMainWindow;
 
 WX_DECLARE_OBJARRAY(wxTreeItemId, TreeItemIdArray);
 
@@ -91,7 +90,7 @@ enum wxTreeListItemType
   //wxItemTypeLast = 2
 };
 
-class WXDLLEXPORT wxTreeListColumnInfo: public wxObject {
+class WXDLLIMPEXP_LSTC wxTreeListColumnInfo: public wxObject {
 public:
     wxTreeListColumnInfo (const wxString &text = wxEmptyString,
                           int width = DEFAULT_COL_WIDTH,
@@ -180,7 +179,7 @@ const int wxTREE_HITTEST_ONITEMCOLUMN = 0x2000;
 extern WXDLLEXPORT const wxChar* wxTreeListCtrlNameStr;
 
 
-class WXDLLEXPORT wxTreeListCtrl : public wxPanel
+class WXDLLIMPEXP_LSTC wxTreeListCtrl : public wxPanel
 {
 public:
     // creation
@@ -648,8 +647,8 @@ protected:
 private:
     int m_headerHeight;
 
-    DECLARE_EVENT_TABLE()
-    DECLARE_DYNAMIC_CLASS(wxTreeListCtrl)
+	wxDECLARE_EVENT_TABLE();
+	wxDECLARE_CLASS(wxTreeListCtrl);
 };
 
 class wxHeaderClickEvent : public wxNotifyEvent {
