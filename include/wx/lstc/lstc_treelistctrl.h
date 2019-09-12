@@ -94,12 +94,12 @@ enum wxTreeListItemType
 class WXDLLEXPORT wxTreeListColumnInfo: public wxObject {
 public:
     wxTreeListColumnInfo (const wxString &text = wxEmptyString,
-                          LS_INTEGER width = DEFAULT_COL_WIDTH,
-                          LS_INTEGER flag = wxALIGN_LEFT,
-                          LS_INTEGER image = -1,
+                          int width = DEFAULT_COL_WIDTH,
+                          int flag = wxALIGN_LEFT,
+                          int image = -1,
                           bool shown = true,
                           bool edit = false,
-						  LS_INTEGER pick_type = wxTR_COLUMN_NONE) {
+						  int pick_type = wxTR_COLUMN_NONE) {
         m_text = text;
         m_width = width;
         m_flag = flag;
@@ -127,17 +127,17 @@ public:
     wxString GetText() const { return m_text; }
     wxTreeListColumnInfo& SetText (const wxString& text) { m_text = text; return *this; }
 
-    LS_INTEGER GetWidth() const { return m_width; }
-    wxTreeListColumnInfo& SetWidth (LS_INTEGER width) { m_width = width; return *this; }
+    int GetWidth() const { return m_width; }
+    wxTreeListColumnInfo& SetWidth (int width) { m_width = width; return *this; }
 
-    LS_INTEGER GetAlignment() const { return m_flag; }
-    wxTreeListColumnInfo& SetAlignment (LS_INTEGER flag) { m_flag = flag; return *this; }
+    int GetAlignment() const { return m_flag; }
+    wxTreeListColumnInfo& SetAlignment (int flag) { m_flag = flag; return *this; }
 
-    LS_INTEGER GetImage() const { return m_image; }
-    wxTreeListColumnInfo& SetImage (LS_INTEGER image) { m_image = image; return *this; }
+    int GetImage() const { return m_image; }
+    wxTreeListColumnInfo& SetImage (int image) { m_image = image; return *this; }
 
-    LS_INTEGER GetSelectedImage() const { return m_selected_image; }
-    wxTreeListColumnInfo& SetSelectedImage (LS_INTEGER image) { m_selected_image = image; return *this; }
+    int GetSelectedImage() const { return m_selected_image; }
+    wxTreeListColumnInfo& SetSelectedImage (int image) { m_selected_image = image; return *this; }
 
     bool IsEditable() const { return m_edit; }
     wxTreeListColumnInfo& SetEditable (bool edit)
@@ -146,18 +146,18 @@ public:
     bool IsShown() const { return m_shown; }
     wxTreeListColumnInfo& SetShown(bool shown) { m_shown = shown; return *this; }
 
-	LS_INTEGER GetPickType(void) const { return m_pick_type;}
-	wxTreeListColumnInfo& SetPickType(LS_INTEGER pick_type) { m_pick_type = pick_type; return *this; }
+	int GetPickType(void) const { return m_pick_type;}
+	wxTreeListColumnInfo& SetPickType(int pick_type) { m_pick_type = pick_type; return *this; }
 
 private:
     wxString m_text;
-    LS_INTEGER m_width;
-    LS_INTEGER m_flag;
-    LS_INTEGER m_image;
-    LS_INTEGER m_selected_image;
+    int m_width;
+    int m_flag;
+    int m_image;
+    int m_selected_image;
     bool m_shown;
     bool m_edit;
-    LS_INTEGER m_pick_type;
+    int m_pick_type;
 };
 
 //----------------------------------------------------------------------------
@@ -165,18 +165,18 @@ private:
 //----------------------------------------------------------------------------
 
 // modes for navigation
-const LS_INTEGER wxTL_MODE_NAV_FULLTREE = 0x0000; // default
-const LS_INTEGER wxTL_MODE_NAV_EXPANDED = 0x0001;
-const LS_INTEGER wxTL_MODE_NAV_VISIBLE  = 0x0002;
-const LS_INTEGER wxTL_MODE_NAV_LEVEL    = 0x0004;
+const int wxTL_MODE_NAV_FULLTREE = 0x0000; // default
+const int wxTL_MODE_NAV_EXPANDED = 0x0001;
+const int wxTL_MODE_NAV_VISIBLE  = 0x0002;
+const int wxTL_MODE_NAV_LEVEL    = 0x0004;
 
 // modes for FindItem
-const LS_INTEGER wxTL_MODE_FIND_EXACT   = 0x0000; // default
-const LS_INTEGER wxTL_MODE_FIND_PARTIAL = 0x0010;
-const LS_INTEGER wxTL_MODE_FIND_NOCASE  = 0x0020;
+const int wxTL_MODE_FIND_EXACT   = 0x0000; // default
+const int wxTL_MODE_FIND_PARTIAL = 0x0010;
+const int wxTL_MODE_FIND_NOCASE  = 0x0020;
 
 // additional flag for HitTest
-const LS_INTEGER wxTREE_HITTEST_ONITEMCOLUMN = 0x2000;
+const int wxTREE_HITTEST_ONITEMCOLUMN = 0x2000;
 extern WXDLLEXPORT const wxChar* wxTreeListCtrlNameStr;
 
 
@@ -257,9 +257,9 @@ public:
 
     // adds a column
     void AddColumn (const wxString& text,
-                    LS_INTEGER width = DEFAULT_COL_WIDTH,
-                    LS_INTEGER flag = wxALIGN_LEFT,
-                    LS_INTEGER image = -1,
+                    int width = DEFAULT_COL_WIDTH,
+                    int flag = wxALIGN_LEFT,
+                    int image = -1,
                     bool shown = true,
                     bool edit = false) {
         AddColumn (wxTreeListColumnInfo (text, width, flag, image, shown, edit));
@@ -267,61 +267,61 @@ public:
     void AddColumn (const wxTreeListColumnInfo& colInfo);
 
     // inserts a column before the given one
-    void InsertColumn (LS_INTEGER before,
+    void InsertColumn (int before,
                        const wxString& text,
-                       LS_INTEGER width = DEFAULT_COL_WIDTH,
-                       LS_INTEGER flag = wxALIGN_LEFT,
-                       LS_INTEGER image = -1,
+                       int width = DEFAULT_COL_WIDTH,
+                       int flag = wxALIGN_LEFT,
+                       int image = -1,
                        bool shown = true,
                        bool edit = false) {
         InsertColumn (before,
                       wxTreeListColumnInfo (text, width, flag, image, shown, edit));
     }
-    void InsertColumn (LS_INTEGER before, const wxTreeListColumnInfo& colInfo);
+    void InsertColumn (int before, const wxTreeListColumnInfo& colInfo);
 
     // deletes the given column - does not delete the corresponding column
-    void RemoveColumn (LS_INTEGER column);
+    void RemoveColumn (int column);
 
     // returns the number of columns in the ctrl
-    LS_INTEGER GetColumnCount() const;
+    int GetColumnCount() const;
 
     // tells which column is the "main" one, i.e. the "threaded" one
-    void SetMainColumn (LS_INTEGER column);
-    LS_INTEGER GetMainColumn() const;
+    void SetMainColumn (int column);
+    int GetMainColumn() const;
 
     /*added by Li Zhangsheng*/
-    LS_INTEGER GetCurColumn() const;
-    bool SetSortColumn(LS_INTEGER column) ;
+    int GetCurColumn() const;
+    bool SetSortColumn(int column) ;
     void SetSortPara() ;
 	void SetItemHilight(const wxTreeItemId& item, bool hilight = true);
 
-    void SetColumn (LS_INTEGER column, const wxTreeListColumnInfo& colInfo);
-    wxTreeListColumnInfo& GetColumn (LS_INTEGER column);
-    const wxTreeListColumnInfo& GetColumn (LS_INTEGER column) const;
+    void SetColumn (int column, const wxTreeListColumnInfo& colInfo);
+    wxTreeListColumnInfo& GetColumn (int column);
+    const wxTreeListColumnInfo& GetColumn (int column) const;
 
-    void SetColumnText (LS_INTEGER column, const wxString& text);
-    wxString GetColumnText (LS_INTEGER column) const;
+    void SetColumnText (int column, const wxString& text);
+    wxString GetColumnText (int column) const;
 
-    void SetColumnWidth (LS_INTEGER column, LS_INTEGER width);
-    LS_INTEGER GetColumnWidth (LS_INTEGER column) const;
+    void SetColumnWidth (int column, int width);
+    int GetColumnWidth (int column) const;
 
-    void SetColumnAlignment (LS_INTEGER column, LS_INTEGER flag);
-    LS_INTEGER GetColumnAlignment (LS_INTEGER column) const;
+    void SetColumnAlignment (int column, int flag);
+    int GetColumnAlignment (int column) const;
 
-    void SetColumnImage (LS_INTEGER column, LS_INTEGER image);
-    LS_INTEGER GetColumnImage (LS_INTEGER column) const;
+    void SetColumnImage (int column, int image);
+    int GetColumnImage (int column) const;
 
-    void SetColumnShown (LS_INTEGER column, bool shown = true);
-    bool IsColumnShown (LS_INTEGER column) const;
+    void SetColumnShown (int column, bool shown = true);
+    bool IsColumnShown (int column) const;
 
-    void SetColumnEditable (LS_INTEGER column, bool edit = true);
-    bool IsColumnEditable (LS_INTEGER column) const;
+    void SetColumnEditable (int column, bool edit = true);
+    bool IsColumnEditable (int column) const;
 
-	void SetColumnPickType (LS_INTEGER column, LS_INTEGER pick_type);
-	LS_INTEGER GetColumnPickType (LS_INTEGER column) const;
+	void SetColumnPickType (int column, int pick_type);
+	int GetColumnPickType (int column) const;
 
-    void SetItemType (const wxTreeItemId& item, const LS_INTEGER column, const wxTreeListItemType itemtype, bool checked = false);
-    wxTreeListItemType GetItemType (const wxTreeItemId& item, const LS_INTEGER column);
+    void SetItemType (const wxTreeItemId& item, const int column, const wxTreeListItemType itemtype, bool checked = false);
+    wxTreeListItemType GetItemType (const wxTreeItemId& item, const int column);
 
     // Functions to work with items.
 
@@ -332,13 +332,13 @@ public:
     wxString GetItemText (const wxTreeItemId& item) const
         { return GetItemText (item, GetMainColumn()); }
     // retrieves item's label of the given column
-    wxString GetItemText (const wxTreeItemId& item, LS_INTEGER column) const;
+    wxString GetItemText (const wxTreeItemId& item, int column) const;
 
     // get one of the images associated with the item (normal by default)
-    LS_INTEGER GetItemImage (const wxTreeItemId& item,
+    int GetItemImage (const wxTreeItemId& item,
                       wxTreeItemIcon which = wxTreeItemIcon_Normal) const
     { return GetItemImage (item, GetMainColumn(), which); }
-    LS_INTEGER GetItemImage (const wxTreeItemId& item, LS_INTEGER column,
+    int GetItemImage (const wxTreeItemId& item, int column,
                       wxTreeItemIcon which = wxTreeItemIcon_Normal) const;
 
     // get the data associated with the item
@@ -348,21 +348,21 @@ public:
     wxColour GetItemTextColour (const wxTreeItemId& item) const;
     wxColour GetItemBackgroundColour (const wxTreeItemId& item) const;
     wxFont GetItemFont (const wxTreeItemId& item) const;
-	LS_INTEGER GetItemHeight(const wxTreeItemId& item);
+	int GetItemHeight(const wxTreeItemId& item);
 
-    bool GetItemChecked (const wxTreeItemId& itemId, const LS_INTEGER column);
-    void SetItemChecked (const wxTreeItemId& item, const LS_INTEGER column, bool checked);
+    bool GetItemChecked (const wxTreeItemId& itemId, const int column);
+    void SetItemChecked (const wxTreeItemId& item, const int column, bool checked);
     wxTreeItemId GetCurrentItem();
 	void SetCurrentItem(wxTreeItemId item);
-    bool SetItemForPartOrGeom(const wxTreeItemId& item, LS_INTEGER type);
-    LS_INTEGER GetItemForPartOrGeom(const wxTreeItemId& item);
+    bool SetItemForPartOrGeom(const wxTreeItemId& item, int type);
+    int GetItemForPartOrGeom(const wxTreeItemId& item);
     void SetItemShown(const wxTreeItemId& item, bool bShow);
     bool GetItemShown(const wxTreeItemId& item);
     void SetAllShown(bool bShown);
     void SetItemDisabled(const wxTreeItemId& item, bool bDisable = true);
     bool IsItemDisabled(const wxTreeItemId& item);
-	void SetItemDisabled(const wxTreeItemId& item, LS_INTEGER column, bool bDisable = true);
-	bool GetItemDisabled(const wxTreeItemId& item, LS_INTEGER column);
+	void SetItemDisabled(const wxTreeItemId& item, int column, bool bDisable = true);
+	bool GetItemDisabled(const wxTreeItemId& item, int column);
 	void SetComboxStringArray(wxArrayString stringArray);
 	void ClearComboxStringArray();
     void SetEndDragFlag();
@@ -372,14 +372,14 @@ public:
     // set item's label
     void SetItemText (const wxTreeItemId& item, const wxString& text)
         { SetItemText (item, GetMainColumn(), text); }
-    void SetItemText (const wxTreeItemId& item, LS_INTEGER column, const wxString& text);
+    void SetItemText (const wxTreeItemId& item, int column, const wxString& text);
 
     // get one of the images associated with the item (normal by default)
-    void SetItemImage (const wxTreeItemId& item, LS_INTEGER image,
+    void SetItemImage (const wxTreeItemId& item, int image,
                        wxTreeItemIcon which = wxTreeItemIcon_Normal)
         { SetItemImage (item, GetMainColumn(), image, which); }
     // the which parameter is ignored for all columns but the main one
-    void SetItemImage (const wxTreeItemId& item, LS_INTEGER column, LS_INTEGER image,
+    void SetItemImage (const wxTreeItemId& item, int column, int image,
                        wxTreeItemIcon which = wxTreeItemIcon_Normal);
 
     // associate some data with the item
@@ -396,8 +396,8 @@ public:
 
     // set the item's text colour
     void SetItemTextColour (const wxTreeItemId& item, const wxColour& colour);
-    void SetItemTextColour (const wxTreeItemId& item, const wxColour& colour, const LS_INTEGER& column);
-    wxColor GetItemTextColour (const wxTreeItemId& item, const LS_INTEGER& column);
+    void SetItemTextColour (const wxTreeItemId& item, const wxColour& colour, const int& column);
+    wxColor GetItemTextColour (const wxTreeItemId& item, const int& column);
 
     // set the item's background colour
     void SetItemBackgroundColour (const wxTreeItemId& item, const wxColour& colour);
@@ -498,14 +498,14 @@ public:
     // add the root node to the tree
     wxTreeItemId AddRoot (const wxString& text,
                           wxTreeListItemType ctType = wxNormalItemType,
-                          LS_INTEGER image = -1, LS_INTEGER selectedImage = -1,
+                          int image = -1, int selectedImage = -1,
                           wxTreeItemData *data = NULL);
 
     // insert a new item in as the first child of the parent
     wxTreeItemId PrependItem (const wxTreeItemId& parent,
                               const wxString& text,
                               wxTreeListItemType ctType = wxNormalItemType,
-                              LS_INTEGER image = -1, LS_INTEGER selectedImage = -1,
+                              int image = -1, int selectedImage = -1,
                               wxTreeItemData *data = NULL);
 
     // insert a new item after a given one
@@ -513,7 +513,7 @@ public:
                              const wxTreeItemId& idPrevious,
                              const wxString& text,
                              wxTreeListItemType ctType = wxNormalItemType,
-                             LS_INTEGER image = -1, LS_INTEGER selectedImage = -1,
+                             int image = -1, int selectedImage = -1,
                              wxTreeItemData *data = NULL);
 
     // insert a new item before the one with the given index
@@ -521,14 +521,14 @@ public:
                              size_t index,
                              const wxString& text,
                              wxTreeListItemType ctType = wxNormalItemType,
-                             LS_INTEGER image = -1, LS_INTEGER selectedImage = -1,
+                             int image = -1, int selectedImage = -1,
                              wxTreeItemData *data = NULL);
 
     // insert a new item in as the last child of the parent
     wxTreeItemId AppendItem (const wxTreeItemId& parent,
                              const wxString& text,
                              wxTreeListItemType ctType = wxNormalItemType,
-                             LS_INTEGER image = -1, LS_INTEGER selectedImage = -1,
+                             int image = -1, int selectedImage = -1,
                              wxTreeItemData *data = NULL);
 
     // delete this item (except root) and associated data if any
@@ -572,10 +572,10 @@ public:
     // The first function is more portable (because easier to implement
     // on other platforms), but the second one returns some extra info.
     wxTreeItemId HitTest (const wxPoint& point)
-        { LS_INTEGER flags; LS_INTEGER column; return HitTest (point, flags, column); }
-    wxTreeItemId HitTest (const wxPoint& point, LS_INTEGER& flags)
-        { LS_INTEGER column; return HitTest (point, flags, column); }
-    wxTreeItemId HitTest (const wxPoint& point, LS_INTEGER& flags, LS_INTEGER& column);
+        { int flags; int column; return HitTest (point, flags, column); }
+    wxTreeItemId HitTest (const wxPoint& point, int& flags)
+        { int column; return HitTest (point, flags, column); }
+    wxTreeItemId HitTest (const wxPoint& point, int& flags, int& column);
 
     // get the bounding rectangle of the item (or of its label only)
     bool GetBoundingRect (const wxTreeItemId& item, wxRect& rect,
@@ -587,7 +587,7 @@ public:
     void EditLabel (const wxTreeItemId& item)
         { EditLabel (item, GetMainColumn()); }
     // edit item's label of the given column
-    void EditLabel (const wxTreeItemId& item, LS_INTEGER column);
+    void EditLabel (const wxTreeItemId& item, int column);
 
     // virtual mode
     virtual wxString OnGetItemText( wxTreeItemData* item, long column ) const;
@@ -597,14 +597,14 @@ public:
     // or +1 if the first item is less than, equal to or greater than the
     // second one. The base class version performs alphabetic comparaison
     // of item labels (GetText)
-    virtual LS_INTEGER OnCompareItems (const wxTreeItemId& item1, const wxTreeItemId& item2, const LS_INTEGER itemtype);
+    virtual int OnCompareItems (const wxTreeItemId& item1, const wxTreeItemId& item2, const int itemtype);
     // sort the children of this item using OnCompareItems
     // NB: this function is not reentrant and not MT-safe (FIXME)!
     void SortChildren(const wxTreeItemId& item);
 
     // searching
-    wxTreeItemId FindItem (const wxTreeItemId& item, LS_INTEGER column, const wxString& str, LS_INTEGER type = 0, LS_INTEGER mode = 0);
-    void FindAllItemWithCase(const wxTreeItemId& item, LS_INTEGER column, const wxString& str, TreeItemIdArray *itemArray, LS_INTEGER mode = 0, LS_INTEGER type = 0);
+    wxTreeItemId FindItem (const wxTreeItemId& item, int column, const wxString& str, int type = 0, int mode = 0);
+    void FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, TreeItemIdArray *itemArray, int mode = 0, int type = 0);
     void AdjustMyScrollbars();
 
     // overridden base class virtuals
@@ -646,7 +646,7 @@ protected:
     void OnSize(wxSizeEvent& event);
 
 private:
-    LS_INTEGER m_headerHeight;
+    int m_headerHeight;
 
     DECLARE_EVENT_TABLE()
     DECLARE_DYNAMIC_CLASS(wxTreeListCtrl)
@@ -654,16 +654,16 @@ private:
 
 class wxHeaderClickEvent : public wxNotifyEvent {
 public:
-    wxHeaderClickEvent(wxEventType eventType = wxEVT_NULL, LS_INTEGER id = 0) : wxNotifyEvent(eventType, id) {
+    wxHeaderClickEvent(wxEventType eventType = wxEVT_NULL, int id = 0) : wxNotifyEvent(eventType, id) {
 
     }
     wxHeaderClickEvent(const wxHeaderClickEvent &clone)
         : wxNotifyEvent(clone)
     {                                       }
-    void SetClickedCol(LS_INTEGER col) { m_clickedCol = col; }
-    LS_INTEGER GetClickedCol() { return m_clickedCol; }
+    void SetClickedCol(int col) { m_clickedCol = col; }
+    int GetClickedCol() { return m_clickedCol; }
 public:
-    LS_INTEGER m_clickedCol;
+    int m_clickedCol;
 };
 
 
@@ -680,14 +680,14 @@ typedef void (wxEvtHandler::*wxTreeViewHeaderEventFunction)(wxHeaderClickEvent&)
 
 class wxTreeListControlEvent : public wxNotifyEvent {
 public:
-    wxTreeListControlEvent(wxEventType eventType = wxEVT_NULL, LS_INTEGER id = 0) : wxNotifyEvent(eventType, id) {
+    wxTreeListControlEvent(wxEventType eventType = wxEVT_NULL, int id = 0) : wxNotifyEvent(eventType, id) {
 
     }
     wxTreeListControlEvent(const wxTreeListControlEvent &clone)
         : wxNotifyEvent(clone)
     {                                       }
-    void SetClickedCol(LS_INTEGER col) { m_clickedCol = col; }
-    LS_INTEGER GetClickedCol() { return m_clickedCol; }
+    void SetClickedCol(int col) { m_clickedCol = col; }
+    int GetClickedCol() { return m_clickedCol; }
     void SetClickedItem(wxTreeItemId item) { m_clickedItem = item; }
 #if wxVERSION_NUMBER >= 2900
 	wxTreeItemId GetClickedItem() { return m_clickedItem; }
@@ -695,7 +695,7 @@ public:
     wxTreeItemId GetClickedItem() { return m_clickedItem; }
 #endif
 public:
-    LS_INTEGER m_clickedCol;
+    int m_clickedCol;
     wxTreeItemId m_clickedItem;
 };
 
@@ -725,16 +725,16 @@ DECLARE_EVENT_TYPE( wxEVT_TREEVIEWCONTROL_DESELECTITEM, -1 )
 
 class wxTreeListCheckBoxEvent : public wxTreeEvent {
 public:
-	wxTreeListCheckBoxEvent(wxEventType eventType = wxEVT_NULL, LS_INTEGER id = 0) : wxTreeEvent(eventType, id) {
+	wxTreeListCheckBoxEvent(wxEventType eventType = wxEVT_NULL, int id = 0) : wxTreeEvent(eventType, id) {
 
 	}
 	wxTreeListCheckBoxEvent(const wxTreeListCheckBoxEvent &clone)
 		: wxTreeEvent(clone)
 	{                                       }
-	void SetClickedCol(LS_INTEGER col) { m_clickedCol = col; }
-	LS_INTEGER GetClickedCol() { return m_clickedCol; }
+	void SetClickedCol(int col) { m_clickedCol = col; }
+	int GetClickedCol() { return m_clickedCol; }
 public:
-	LS_INTEGER m_clickedCol;
+	int m_clickedCol;
 };
 
 

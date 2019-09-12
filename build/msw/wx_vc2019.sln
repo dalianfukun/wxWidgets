@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_custom_build", "wx_custom_build.vcxproj", "{01F4CE10-2CFB-41A8-B41F-E54337868A1D}"
 EndProject
@@ -111,6 +111,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gl", "wx_gl.vcxproj", "{DA8
 	ProjectSection(ProjectDependencies) = postProject
 		{6744DAD8-9C70-574A-BFF2-9F8DDDB24A75} = {6744DAD8-9C70-574A-BFF2-9F8DDDB24A75}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lstc", "wx_lstc.vcxproj", "{B340E639-605D-422E-8004-9E132E172AF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -508,8 +510,27 @@ Global
 		{DA8B15EF-6750-5928-BC0E-C748213CF9B2}.Release|Win32.Build.0 = Release|Win32
 		{DA8B15EF-6750-5928-BC0E-C748213CF9B2}.Release|x64.ActiveCfg = Release|x64
 		{DA8B15EF-6750-5928-BC0E-C748213CF9B2}.Release|x64.Build.0 = Release|x64
+		{B340E639-605D-422E-8004-9E132E172AF9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B340E639-605D-422E-8004-9E132E172AF9}.Debug|Win32.Build.0 = Debug|Win32
+		{B340E639-605D-422E-8004-9E132E172AF9}.Debug|x64.ActiveCfg = Debug|x64
+		{B340E639-605D-422E-8004-9E132E172AF9}.Debug|x64.Build.0 = Debug|x64
+		{B340E639-605D-422E-8004-9E132E172AF9}.DLL Debug|Win32.ActiveCfg = DLL Debug|Win32
+		{B340E639-605D-422E-8004-9E132E172AF9}.DLL Debug|Win32.Build.0 = DLL Debug|Win32
+		{B340E639-605D-422E-8004-9E132E172AF9}.DLL Debug|x64.ActiveCfg = DLL Debug|x64
+		{B340E639-605D-422E-8004-9E132E172AF9}.DLL Debug|x64.Build.0 = DLL Debug|x64
+		{B340E639-605D-422E-8004-9E132E172AF9}.DLL Release|Win32.ActiveCfg = DLL Release|Win32
+		{B340E639-605D-422E-8004-9E132E172AF9}.DLL Release|Win32.Build.0 = DLL Release|Win32
+		{B340E639-605D-422E-8004-9E132E172AF9}.DLL Release|x64.ActiveCfg = DLL Release|x64
+		{B340E639-605D-422E-8004-9E132E172AF9}.DLL Release|x64.Build.0 = DLL Release|x64
+		{B340E639-605D-422E-8004-9E132E172AF9}.Release|Win32.ActiveCfg = Release|Win32
+		{B340E639-605D-422E-8004-9E132E172AF9}.Release|Win32.Build.0 = Release|Win32
+		{B340E639-605D-422E-8004-9E132E172AF9}.Release|x64.ActiveCfg = Release|x64
+		{B340E639-605D-422E-8004-9E132E172AF9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A354E02-5C60-4D5D-844F-0CA5634C50B9}
 	EndGlobalSection
 EndGlobal
