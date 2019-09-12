@@ -20,8 +20,8 @@
 #endif
 
 #include "wx/treectrl.h"
-#include "wx/control.h
-#include "wx/pen.h
+#include "wx/control.h"
+#include "wx/pen.h"
 #include "wx/listctrl.h" // for wxListEvent
 #include "wx/dynarray.h"
 #include "wx/arrimpl.cpp"
@@ -222,12 +222,12 @@ public:
     // indent is the number of pixels the children are indented relative to
     // the parents position. SetIndent() also redraws the control
     // immediately.
-    LS_UINT GetIndent() const;
-    void SetIndent(LS_UINT indent);
+    unsigned int GetIndent() const;
+    void SetIndent(unsigned int indent);
 
     // line spacing is the space above and below the text on each line
-    LS_UINT GetLineSpacing() const;
-    void SetLineSpacing(LS_UINT spacing);
+    unsigned int GetLineSpacing() const;
+    void SetLineSpacing(unsigned int spacing);
 
     // image list: these functions allow to associate an image list with
     // the control and retrieve it. Note that when assigned with

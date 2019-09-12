@@ -31,7 +31,7 @@
 //     #pragma hdrstopp
 // #endif
 
-
+#include <map>
 #include "wx/treebase.h"
 #include "wx/timer.h"
 #include "wx/textctrl.h"
@@ -302,12 +302,12 @@ public:
     // indent is the number of pixels the children are indented relative to
     // the parents position. SetIndent() also redraws the control
     // immediately.
-    LS_UINT GetIndent() const { return m_indent; }
-    void SetIndent(LS_UINT indent);
+    unsigned int GetIndent() const { return m_indent; }
+    void SetIndent(unsigned int indent);
 
     // see wxTreeListCtrl for the meaning
-    LS_UINT GetLineSpacing() const { return m_linespacing; }
-    void SetLineSpacing(LS_UINT spacing);
+    unsigned int GetLineSpacing() const { return m_linespacing; }
+    void SetLineSpacing(unsigned int spacing);
 
     // image list: these functions allow to associate an image list with
     // the control and retrieve it. Note that when assigned with
@@ -882,9 +882,9 @@ private:
 //Float Validator
 class wxEditFloatValidator : public wxValidator
 {
-     LS_REAL* val;
+     float* val;
  public:
-     wxEditFloatValidator(LS_REAL* val);
+     wxEditFloatValidator(float* val);
      wxObject* Clone() const;
      bool TransferFromWindow();
      bool TransferToWindow();
@@ -1408,7 +1408,7 @@ void wxTreeListRenameTimer::Notify()
 // wxEditFloatValidator (internal)
 //-----------------------------------------------------------------------------
 
- wxEditFloatValidator::wxEditFloatValidator(LS_REAL* pval)
+ wxEditFloatValidator::wxEditFloatValidator(float* pval)
  {
      val=pval;
  }
@@ -1422,7 +1422,7 @@ void wxTreeListRenameTimer::Notify()
  bool wxEditFloatValidator::TransferFromWindow()
  {
      wxString s=((wxTextCtrl*)m_validatorWindow)->GetValue();
-     LS_REAL t;
+     float t;
      int r=sscanf(s.c_str()," %f",&t);
      if (r==1)
      {
@@ -1442,7 +1442,7 @@ void wxTreeListRenameTimer::Notify()
  bool wxEditFloatValidator::Validate(wxPanel* parent)
  {
      wxString s=((wxTextCtrl*)m_validatorWindow)->GetValue();
-     LS_REAL t;
+     float t;
      int r=sscanf(s.c_str()," %f",&t);
      if (r==1)
      {
@@ -1468,7 +1468,7 @@ void wxTreeListRenameTimer::Notify()
  bool wxEditLongValidator::TransferFromWindow()
  {
      wxString s=((wxTextCtrl*)m_validatorWindow)->GetValue();
-     LS_REAL t;
+     float t;
      int r=sscanf(s.c_str()," %f",&t);
      if (r==1)
      {
@@ -1488,7 +1488,7 @@ void wxTreeListRenameTimer::Notify()
  bool wxEditLongValidator::Validate(wxPanel* parent)
  {
      wxString s=((wxTextCtrl*)m_validatorWindow)->GetValue();
-     LS_REAL t;
+     float t;
      int r=sscanf(s.c_str()," %f",&t);
      if (r==1)
      {
@@ -2996,12 +2996,12 @@ size_t wxTreeListMainWindow::GetCount() const {
     return m_rootItem == NULL? 0: m_rootItem->GetChildrenCount();
 }
 
-void wxTreeListMainWindow::SetIndent (LS_UINT indent) {
+void wxTreeListMainWindow::SetIndent (unsigned int indent) {
     m_indent = wxMax ((unsigned)MININDENT, indent);
     m_dirty = true;
 }
 
-void wxTreeListMainWindow::SetLineSpacing (LS_UINT spacing) {
+void wxTreeListMainWindow::SetLineSpacing (unsigned int spacing) {
     m_linespacing = spacing;
     m_dirty = true;
     CalculateLineHeight();
@@ -6231,16 +6231,16 @@ void wxTreeListCtrl::OnSize(wxSizeEvent& WXUNUSED(event))
 
 size_t wxTreeListCtrl::GetCount() const { return m_main_win->GetCount(); }
 
-LS_UINT wxTreeListCtrl::GetIndent() const
+unsigned int wxTreeListCtrl::GetIndent() const
 { return m_main_win->GetIndent(); }
 
-void wxTreeListCtrl::SetIndent(LS_UINT indent)
+void wxTreeListCtrl::SetIndent(unsigned int indent)
 { m_main_win->SetIndent(indent); }
 
-LS_UINT wxTreeListCtrl::GetLineSpacing() const
+unsigned int wxTreeListCtrl::GetLineSpacing() const
 { return m_main_win->GetLineSpacing(); }
 
-void wxTreeListCtrl::SetLineSpacing(LS_UINT spacing)
+void wxTreeListCtrl::SetLineSpacing(unsigned int spacing)
 { m_main_win->SetLineSpacing(spacing); }
 
 wxImageList* wxTreeListCtrl::GetImageList() const
@@ -6613,9 +6613,9 @@ int wxTreeListCtrl::OnCompareItems(const wxTreeItemId& item1,
     }
     else if (itemtype == wxTR_COLUMN_FLOAT_TEXT)
     {
-        LS_REAL temp1 = atof(str1);
-        LS_REAL temp2 = atof(str2);
-        LS_REAL m = (temp1 - temp2);
+        float temp1 = atof(str1);
+        float temp2 = atof(str2);
+        float m = (temp1 - temp2);
         if(m < -0.000001) return -1 * m_main_win->m_sortPara;
         if(m >= -0.000001 && m <= 0.000001) return 0;
         if(m > 0.000001) return m_main_win->m_sortPara;

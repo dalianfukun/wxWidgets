@@ -34,6 +34,9 @@
     <ClCompile Include="..\..\src\lstc\lstc_treelistctrl.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\common\dummy.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\wx\lstc\lstc_treelistctrl.h">
