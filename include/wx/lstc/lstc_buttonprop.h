@@ -83,7 +83,7 @@ private:
     wxString m_caption; 
 };
 
-/*
+
 #define ID_MULTIBTN_TEST_BEGIN 10500
 enum{
 	ID_TW_POST_PLOT = ID_MULTIBTN_TEST_BEGIN+1,
@@ -185,7 +185,5 @@ public:
 	virtual bool Render( wxDC& dc, const wxRect& rect, const wxPropertyGrid* propertyGrid, wxPGProperty* property, int column, int item, int flags ) const;
 
 };
-
-*/
 
 #endif

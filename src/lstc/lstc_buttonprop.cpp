@@ -138,7 +138,7 @@
 
 extern "C"
 {
-	extern void SendCommand(const char* line);
+	//extern void SendCommand(const char* line);
 };
 
 // -----------------------------------------------------------------------
@@ -673,7 +673,7 @@ wxVariant wxButtonProperty::DoGetAttribute(const wxString& name) const
         }
     return value;
 }
-/*
+
 
 WX_PG_IMPLEMENT_INTERNAL_EDITOR_CLASS(twButton,
 	twMultiButtonEditor,
@@ -795,7 +795,7 @@ void twPGMultiButton::OnMultiButtonClick(wxCommandEvent& evt)
 	{
 		wxString cmd;
 		cmd << "lsppframe " << m_btnCmds.Item(id-1);
-		SendCommand(cmd.ToAscii());
+		//SendCommand(cmd.ToAscii());
 	}
 }
 
@@ -913,6 +913,5 @@ bool  twMultiButtonRender::Render( wxDC& dc,const wxRect& rect,const wxPropertyG
 	}
 	return true;
 }
-*/
 
 #endif
