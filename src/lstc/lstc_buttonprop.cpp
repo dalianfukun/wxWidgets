@@ -531,7 +531,7 @@ wxPGButtonEditor::~wxPGButtonEditor()
 
 wxPGButtonEditor* s_buttonEditor = NULL;
 
-//wxIMPLEMENT_CLASS(wxButtonProperty, wxPGProperty);
+wxIMPLEMENT_CLASS(wxButtonProperty, wxPGProperty);
 
 const wxPGEditor* wxButtonProperty::DoGetEditorClass() const
 {
