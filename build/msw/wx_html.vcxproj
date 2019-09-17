@@ -337,7 +337,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(OutDir)$(wxIncSubDir);..\..\include;..\..\src\tiff\libtiff;..\..\src\jpeg;..\..\src\png;..\..\src\zlib;..\..\src\regex;..\..\src\expat\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_USRDLL;DLL_EXPORTS;_DEBUG;_CRT_SECURE_NO_DEPRECATE=1;_CRT_NON_CONFORMING_SWPRINTFS=1;_SCL_SECURE_NO_WARNINGS=1;__WXMSW__;WXBUILDING;WXUSINGDLL;WXMAKINGDLL_HTML;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_USRDLL;DLL_EXPORTS;_DEBUG;_CRT_SECURE_NO_DEPRECATE=1;_CRT_NON_CONFORMING_SWPRINTFS=1;_SCL_SECURE_NO_WARNINGS=1;__WXMSW__;WXBUILDING;WXUSINGDLL;WXMAKINGDLL_HTML;wxUSE_UNICODE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

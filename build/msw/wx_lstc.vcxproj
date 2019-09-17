@@ -337,7 +337,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(OutDir)$(wxIncSubDir);..\..\include;..\..\src\tiff\libtiff;..\..\src\jpeg;..\..\src\png;..\..\src\zlib;..\..\src\regex;..\..\src\expat\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_USRDLL;DLL_EXPORTS;_DEBUG;_CRT_SECURE_NO_DEPRECATE=1;_CRT_NON_CONFORMING_SWPRINTFS=1;_SCL_SECURE_NO_WARNINGS=1;__WXMSW__;WXBUILDING;WXUSINGDLL;WXMAKINGDLL_LSTC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_USRDLL;DLL_EXPORTS;_DEBUG;_CRT_SECURE_NO_DEPRECATE=1;_CRT_NON_CONFORMING_SWPRINTFS=1;_SCL_SECURE_NO_WARNINGS=1;__WXMSW__;WXBUILDING;WXUSINGDLL;WXMAKINGDLL_LSTC;wxUSE_UNICODE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -358,7 +358,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxtiff$(wxSuffixDebug).lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;wxexpat$(wxSuffixDebug).lib;wxscintilla$(wxSuffixDebug).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)ribbon.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(OutDir)$(wxToolkitLibNamePrefix)$(ProjectName).lib</ImportLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -491,9 +491,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\src\lstc\lstc_treelistctrl.cpp" />
+    <ClCompile Include="..\..\src\lstc\lstc_buttonprop.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\src\lstc\lstc_treelistctrl.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\wx\lstc\lstc_buttonprop.h" />
     <ClInclude Include="..\..\include\wx\lstc\lstc_treelistctrl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

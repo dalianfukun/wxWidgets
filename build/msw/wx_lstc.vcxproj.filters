@@ -37,9 +37,15 @@
     <ClCompile Include="..\..\src\common\dummy.cpp">
       <Filter>Common Sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\lstc\lstc_buttonprop.cpp">
+      <Filter>Common Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\wx\lstc\lstc_treelistctrl.h">
+      <Filter>Common Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wx\lstc\lstc_buttonprop.h">
       <Filter>Common Headers</Filter>
     </ClInclude>
   </ItemGroup>
