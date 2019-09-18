@@ -29,7 +29,6 @@
 class WXDLLIMPEXP_FWD_LSTC wxTreeListHeaderWindow;
 class WXDLLIMPEXP_FWD_LSTC wxTreeListMainWindow;
 
-WX_DECLARE_OBJARRAY(wxTreeItemId, TreeItemIdArray);
 
 /*
 #define wxTR_HAS_BUTTONS             0x0001     // draw collapsed/expanded btns
@@ -603,7 +602,7 @@ public:
 
     // searching
     wxTreeItemId FindItem (const wxTreeItemId& item, int column, const wxString& str, int type = 0, int mode = 0);
-    void FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, TreeItemIdArray *itemArray, int mode = 0, int type = 0);
+    void FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, wxArrayTreeItemIds*itemArray, int mode = 0, int type = 0);
     void AdjustMyScrollbars();
 
     // overridden base class virtuals

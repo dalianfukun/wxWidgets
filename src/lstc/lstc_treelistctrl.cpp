@@ -86,8 +86,6 @@ WX_DECLARE_OBJARRAY(wxTreeListColumnInfo, wxArrayTreeListColumnInfo);
 WX_DEFINE_OBJARRAY(wxArrayTreeListColumnInfo);
 
 
-WX_DEFINE_OBJARRAY(TreeItemIdArray);
-
 DEFINE_EVENT_TYPE(wxEVT_TREEVIEWHEADER_CLICKED)
 DEFINE_EVENT_TYPE(wxEVT_TREEVIEWCONTROL_START)
 DEFINE_EVENT_TYPE(wxEVT_TREEVIEWCONTROL_DESELECTITEM)
@@ -609,7 +607,7 @@ public:
 
     // searching
     wxTreeItemId FindItem (const wxTreeItemId& item,  int column, const wxString& str, int type = 0, int mode = 0);
-    void FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, TreeItemIdArray *itemArray, int mode = 0, int type = 0);
+    void FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, wxArrayTreeItemIds *itemArray, int mode = 0, int type = 0);
 
     // implementation only from now on
 
@@ -4291,7 +4289,7 @@ wxTreeItemId wxTreeListMainWindow::FindItem (const wxTreeItemId& item,  int colu
     return (wxTreeItemId*)NULL;
 }
 
-void wxTreeListMainWindow::FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, TreeItemIdArray *itemArray, int mode, int type)
+void wxTreeListMainWindow::FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, wxArrayTreeItemIds *itemArray, int mode, int type)
 {
     if(column < 0 || column >= GetColumnCount()) return;
     wxString itemText, strTemp;
@@ -6639,7 +6637,7 @@ void wxTreeListCtrl::SortChildren(const wxTreeItemId& item)
 
 wxTreeItemId wxTreeListCtrl::FindItem (const wxTreeItemId& item,  int column, const wxString& str, int type, int mode)
 { return m_main_win->FindItem (item, column, str, type, mode); }
-void wxTreeListCtrl::FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, TreeItemIdArray *itemArray, int mode, int type)
+void wxTreeListCtrl::FindAllItemWithCase(const wxTreeItemId& item, int column, const wxString& str, wxArrayTreeItemIds*itemArray, int mode, int type)
 { return m_main_win->FindAllItemWithCase (item, column, str, itemArray, mode, type); }
 
 void wxTreeListCtrl::SetDragItem (const wxTreeItemId& item)
