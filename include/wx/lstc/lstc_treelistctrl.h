@@ -89,6 +89,7 @@ enum wxTreeListItemType
   //wxItemTypeLast = 2
 };
 
+WXDLLIMPEXP_LSTC bool IsTreeListMainWindowPropagateEvent(wxKeyEvent* event);
 class WXDLLIMPEXP_LSTC wxTreeListColumnInfo: public wxObject {
 public:
     wxTreeListColumnInfo (const wxString &text = wxEmptyString,
