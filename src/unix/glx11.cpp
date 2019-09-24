@@ -507,8 +507,8 @@ wxGLContext::wxGLContext(wxGLCanvas *win,
     // even a warning) if GL >= 3.0 context creation fails
     g_ctxErrorOccurred = false;
     int (*oldHandler)(Display*, XErrorEvent*) = XSetErrorHandler(&CTXErrorHandler);
-
-    if ( glXCreateContextAttribsARB )
+    //Add by Shizhipeng. When putty connect to Linux remotely, glXCreateContextAttribsARB should be set to 0, or else, error.
+    /*if ( glXCreateContextAttribsARB )
     {
         GLXFBConfig *fbc = win->GetGLXFBConfig();
         wxCHECK_RET( fbc, "Invalid GLXFBConfig for OpenGL" );
@@ -531,13 +531,82 @@ wxGLContext::wxGLContext(wxGLCanvas *win,
         m_glContext = glXCreateContext( dpy, vi,
                                         other ? other->m_glContext : None,
                                         x11Direct );
+    }*/
+    // Changed by Zhipeng.Shi
+    if ( glXCreateContextAttribsARB )
+    {
+        GLXFBConfig *fbc = win->GetGLXFBConfig();
+        if ( fbc )
+        {
+            m_glContext = glXCreateContextAttribsARB( dpy, fbc[0],
+                                other ? other->m_glContext : None,
+                                x11Direct, contextAttribs );
+        }
+        else
+        { 
+            if ( wxGLCanvas::GetGLXVersion() >= 13 )
+            {
+                GLXFBConfig *fbc = win->GetGLXFBConfig();
+                wxCHECK_RET( fbc, "Invalid GLXFBConfig for OpenGL" );
+
+                m_glContext = glXCreateNewContext( dpy, fbc[0], renderType,
+                                           other ? other->m_glContext : None,
+                                           x11Direct );
+            }
+            else // GLX <= 1.2
+            {
+                m_glContext = glXCreateContext( dpy, vi,
+                                        other ? other->m_glContext : None,
+                                        x11Direct );
+            }
+        }
     }
 
+    else
+    { 
+        if ( wxGLCanvas::GetGLXVersion() >= 13 )
+        {
+            GLXFBConfig *fbc = win->GetGLXFBConfig();
+            wxCHECK_RET( fbc, "Invalid GLXFBConfig for OpenGL" );
+
+            m_glContext = glXCreateNewContext( dpy, fbc[0], renderType,
+                                       other ? other->m_glContext : None,
+                                       x11Direct );
+        }
+        else // GLX <= 1.2
+        {
+            m_glContext = glXCreateContext( dpy, vi,
+                                    other ? other->m_glContext : None,
+                                    x11Direct );
+        }
+    }
+    //Add by Zhipeng.Shi 2019-2-20
+    //Some time, no graphics card, need this
+    if (!m_glContext)
+    {
+        if ( wxGLCanvas::GetGLXVersion() >= 13 )
+            {
+                GLXFBConfig *fbc = win->GetGLXFBConfig();
+                wxCHECK_RET( fbc, "Invalid GLXFBConfig for OpenGL" );
+
+                m_glContext = glXCreateNewContext( dpy, fbc[0], renderType,
+                                           other ? other->m_glContext : None,
+                                           x11Direct );
+            }
+            else // GLX <= 1.2
+            {
+                m_glContext = glXCreateContext( dpy, vi,
+                                        other ? other->m_glContext : None,
+                                        x11Direct );
+            }
+    }
     // Sync to ensure any errors generated are processed.
     XSync( dpy, False );
 
-    if ( g_ctxErrorOccurred || !m_glContext )
+    if ( !m_glContext )
         wxLogMessage(_("Couldn't create OpenGL context"));
+    else if (g_ctxErrorOccurred)
+        wxLogMessage(_("Warning: ctxErrorOccurred."));
     else
         m_isOk = true;
 
@@ -636,6 +705,179 @@ bool wxGLCanvasX11::IsGLXMultiSampleAvailable()
 }
 
 
+bool wxGLCanvasX11::ConvertWXAttrsToGL(const int *wxattrs, int *glattrs, size_t n)
+{
+    if ( !wxattrs )
+    {
+        size_t i = 0;
+
+        // use double-buffered true colour by default
+        glattrs[i++] = GLX_DOUBLEBUFFER;
+
+        if ( GetGLXVersion() < 13 )
+        {
+            // default settings if attriblist = 0
+            glattrs[i++] = GLX_RGBA;
+            glattrs[i++] = GLX_DEPTH_SIZE;   glattrs[i++] = 1;
+            glattrs[i++] = GLX_RED_SIZE;     glattrs[i++] = 1;
+            glattrs[i++] = GLX_GREEN_SIZE;   glattrs[i++] = 1;
+            glattrs[i++] = GLX_BLUE_SIZE;    glattrs[i++] = 1;
+            glattrs[i++] = GLX_ALPHA_SIZE;   glattrs[i++] = 0;
+        }
+        else // recent GLX can choose the defaults on its own just fine
+        {
+            // we just need to have a value after GLX_DOUBLEBUFFER
+            glattrs[i++] = True;
+        }
+
+        glattrs[i] = None;
+
+        wxASSERT_MSG( i < n, wxT("GL attributes buffer too small") );
+    }
+ else // have non-default attributes
+    {
+        size_t p = 0;
+        for ( int arg = 0; wxattrs[arg] != 0; )
+        {
+            // check if we have any space left, knowing that we may insert 2
+            // more elements during this loop iteration and we always need to
+            // terminate the list with None (hence -3)
+            if ( p > n - 3 )
+                return false;
+
+            // indicates whether we have a boolean attribute
+            bool isBoolAttr = false;
+
+            switch ( wxattrs[arg++] )
+            {
+                case WX_GL_BUFFER_SIZE:
+                    glattrs[p++] = GLX_BUFFER_SIZE;
+                    break;
+
+                case WX_GL_LEVEL:
+                    glattrs[p++] = GLX_LEVEL;
+                    break;
+
+                case WX_GL_RGBA:
+                    if ( GetGLXVersion() >= 13 )
+                    {
+                        // this is the default GLX_RENDER_TYPE anyhow
+                        continue;
+                    }
+
+                    glattrs[p++] = GLX_RGBA;
+                    isBoolAttr = true;
+                    break;
+
+                case WX_GL_DOUBLEBUFFER:
+                    glattrs[p++] = GLX_DOUBLEBUFFER;
+                    isBoolAttr = true;
+                    break;
+
+                case WX_GL_STEREO:
+                    glattrs[p++] = GLX_STEREO;
+                    isBoolAttr = true;
+                    break;
+
+                case WX_GL_AUX_BUFFERS:
+                    glattrs[p++] = GLX_AUX_BUFFERS;
+                    break;
+
+                case WX_GL_MIN_RED:
+                    glattrs[p++] = GLX_RED_SIZE;
+                    break;
+
+                case WX_GL_MIN_GREEN:
+                    glattrs[p++] = GLX_GREEN_SIZE;
+                    break;
+                case WX_GL_MIN_BLUE:
+                    glattrs[p++] = GLX_BLUE_SIZE;
+                    break;
+
+                case WX_GL_MIN_ALPHA:
+                    glattrs[p++] = GLX_ALPHA_SIZE;
+                    break;
+
+                case WX_GL_DEPTH_SIZE:
+                    glattrs[p++] = GLX_DEPTH_SIZE;
+                    break;
+
+                case WX_GL_STENCIL_SIZE:
+                    glattrs[p++] = GLX_STENCIL_SIZE;
+                    break;
+
+                case WX_GL_MIN_ACCUM_RED:
+                    glattrs[p++] = GLX_ACCUM_RED_SIZE;
+                    break;
+
+                case WX_GL_MIN_ACCUM_GREEN:
+                    glattrs[p++] = GLX_ACCUM_GREEN_SIZE;
+                    break;
+
+                case WX_GL_MIN_ACCUM_BLUE:
+                    glattrs[p++] = GLX_ACCUM_BLUE_SIZE;
+                    break;
+
+                case WX_GL_MIN_ACCUM_ALPHA:
+                    glattrs[p++] = GLX_ACCUM_ALPHA_SIZE;
+                    break;
+
+                case WX_GL_SAMPLE_BUFFERS:
+#ifdef GLX_SAMPLE_BUFFERS_ARB
+                    if ( IsGLXMultiSampleAvailable() )
+                    {
+                        glattrs[p++] = GLX_SAMPLE_BUFFERS_ARB;
+                        break;
+                    }
+#endif // GLX_SAMPLE_BUFFERS_ARB
+                    // if it was specified just to disable it, no problem
+                    if ( !wxattrs[arg++] )
+                        continue;
+
+                    // otherwise indicate that it's not supported
+                    return false;
+ case WX_GL_SAMPLES:
+#ifdef GLX_SAMPLES_ARB
+                    if ( IsGLXMultiSampleAvailable() )
+                    {
+                        glattrs[p++] = GLX_SAMPLES_ARB;
+                        break;
+                    }
+#endif // GLX_SAMPLES_ARB
+
+                    if ( !wxattrs[arg++] )
+                        continue;
+
+                    return false;
+
+                default:
+                    wxLogDebug(wxT("Unsupported OpenGL attribute %d"),
+                               wxattrs[arg - 1]);
+                    continue;
+            }
+
+            if ( isBoolAttr )
+            {
+                // as explained above, for pre 1.3 API the attribute just needs
+                // to be present so we only add its value when using the new API
+                if ( GetGLXVersion() >= 13 )
+                    glattrs[p++] = True;
+            }
+            else // attribute with real (non-boolean) value
+            {
+                // copy attribute value as is
+                glattrs[p++] = wxattrs[arg++];
+            }
+        }
+
+        glattrs[p] = None;
+    }
+
+    return true;
+
+
+}
+
 /* static */
 bool wxGLCanvasX11::InitXVisualInfo(const wxGLAttributes& dispAttrs,
                                     GLXFBConfig** pFBC,
@@ -670,8 +912,16 @@ bool wxGLCanvasX11::InitXVisualInfo(const wxGLAttributes& dispAttrs,
     else // GLX <= 1.2
     {
         *pFBC = NULL;
+
+        /**pXVisual = glXChooseVisual(dpy, DefaultScreen(dpy),
+			          wx_const_cast(int*, attrsListGLX); */ //Deleted by Zhipeng.Shi, add following.copy from wx3.0.2
+				  
+        const int tmpAttrsListGLX[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
+        int data[512];
+        if ( !ConvertWXAttrsToGL(tmpAttrsListGLX, data, WXSIZEOF(data)) )
+            return false;
         *pXVisual = glXChooseVisual(dpy, DefaultScreen(dpy),
-                                   wx_const_cast(int*, attrsListGLX) );
+                                   data );
     }
 
     return *pXVisual != NULL;

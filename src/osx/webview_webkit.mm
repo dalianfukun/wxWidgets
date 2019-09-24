@@ -31,7 +31,9 @@
 #if wxOSX_USE_IPHONE
 #include <UIKit/UIWebView.h>
 #else
-#include <WebKit/WebKit.h>
+//#include <WebKit/WebKit.h>
+//Modify for mac 10.10 compile error by Zhipeng Shi
+#include <WebKit/WebKitLegacy.h>
 #include <WebKit/HIWebView.h>
 #include <WebKit/CarbonUtils.h>
 #endif

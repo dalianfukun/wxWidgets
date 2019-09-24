@@ -60,8 +60,13 @@ bool wxDialog::Create( wxWindow *parent,
     style |= wxTAB_TRAVERSAL;
 
     // ...but not these styles
-    style &= ~(wxYES | wxOK | wxNO); // | wxCANCEL
-
+    // Modify by Zhipeng Shi
+    //style &= ~(wxYES | wxOK | wxNO); // | wxCANCEL
+    if ( parent ) {
+    	style |= wxFRAME_FLOAT_ON_PARENT;
+    } else {
+	style &= ~(wxYES | wxOK | wxNO);
+    }
     if ( !wxTopLevelWindow::Create( parent, id, title, pos, size, style, name ) )
         return false;
 

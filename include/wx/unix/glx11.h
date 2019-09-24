@@ -114,6 +114,8 @@ public:
 
 private:
 
+    static bool ConvertWXAttrsToGL(const int *wxattrs, int *glattrs, size_t n);
+
     // this is only used if it's supported i.e. if GL >= 1.3
     GLXFBConfig *m_fbc;
 

@@ -27,8 +27,8 @@ public:
                const wxString& name = wxTextCtrlNameStr)
     {
         Init();
-
-        Create(parent, id, value, pos, size, style, validator, name);
+        /*Modify by Zhipeng Shi 2014-7-1. LS-PrePost don't process the enter event if developer don't add wxTE_PROCESS_ENTER */
+        Create(parent, id, value, pos, size, style|wxTE_PROCESS_ENTER, validator, name);
     }
     virtual ~wxTextCtrl();
 
