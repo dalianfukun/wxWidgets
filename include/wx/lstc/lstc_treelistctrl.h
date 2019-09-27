@@ -14,7 +14,7 @@
 
 #ifndef TREELISTCTRL_H
 #define TREELISTCTRL_H
-
+#include "wx/defs.h"
 #if defined(__GNUG__) && !defined(__APPLE__)
     #pragma interface "treelistctrl.h"
 #endif

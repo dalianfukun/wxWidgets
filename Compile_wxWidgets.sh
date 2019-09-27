@@ -67,7 +67,7 @@ echo
 echo "============================================================================"
 mkdir debugbuild
 cd debugbuild
-../configure --prefix=${INSTALL_PATH} --with-gtk=${GTK_VERSION} --enable-debug --disable-shared --with-opengl --without-gnomeprint --disable-unicode --without-libnotify --disable-notifmsg --disable-mediactrl
+../configure --prefix=${INSTALL_PATH} --with-gtk=${GTK_VERSION} --enable-debug --disable-static --enable-shared --with-opengl --without-gnomeprint --disable-unicode --without-libnotify --disable-notifmsg --disable-mediactrl
 else
 if [ -d releasebuild ]; then
 rm -rf releasebuild
@@ -92,7 +92,7 @@ echo
 echo "============================================================================"
 mkdir releasebuild
 cd releasebuild
-../configure --prefix=${INSTALL_PATH} --with-gtk=${GTK_VERSION} --disable-debug --disable-shared --enable-optimize --with-opengl --without-gnomeprint --disable-unicode --without-libnotify --disable-notifmsg --disable-mediactrl
+../configure --prefix=${INSTALL_PATH} --with-gtk=${GTK_VERSION} --disable-debug --enable-shared --disable-static --enable-optimize --with-opengl --without-gnomeprint --disable-unicode --without-libnotify --disable-notifmsg --disable-mediactrl
 fi
 
 make -j4 && make install
