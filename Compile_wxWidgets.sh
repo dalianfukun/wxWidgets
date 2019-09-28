@@ -96,6 +96,15 @@ cd releasebuild
 fi
 
 make -j4 && make install
+if [ "$Release_Build" = "d" ]; then
+cp ../src/lstc/Makefile.debug ./Makefile.debug && make -f Makefile.debug
+else
+cp ../src/lstc/Makefile.release ./Makefile.release && make -f Makefile.release
+fi
+mkdir -p ${INSTALL_PATH}/include/wx-3.1/wx/lstc
+cp ../include/wx/lstc/* ${INSTALL_PATH}/include/wx-3.1/wx/lstc
+cp -d libwx_gtk2_lstc* ${INSTALL_PATH}/lib
+cd ${INSTALL_PATH}/lib && ln -s libwx_gtk2_lstc-3.1.so.0.0.0 libwx_gtk2_lstc-3.1.so && ln -s libwx_gtk2_lstc-3.1.so.0.0.0 libwx_gtk2_lstc-3.1.so.0
 echo "${INSTALL_PATH}/bin">~/.newwxpath
 echo "============================================================================"
 echo
